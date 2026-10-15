@@ -9,7 +9,7 @@
     "start": "node --env-file=.env src/index.ts",
     "lint:fix": "oxlint --fix",
     "typecheck": "tsc --noEmit",
-    "test": "node --test 'test/**/*.test.ts'"
+    "test": "node --test --test-global-setup=test/global-setup.ts 'test/**/*.test.ts'"
   },
   "engines": {
     "node": ">=24"
@@ -18,11 +18,13 @@
     "@koa/router": "^15.7.0",
     "graphql": "^17.0.2",
     "graphql-yoga": "^5.24.5",
-    "koa": "^3.2.1"
+    "koa": "^3.2.1",
+    "mongoose": "^9.11.2"
   },
   "devDependencies": {
     "@types/koa": "^3.0.3",
     "@types/node": "^26.6.5",
+    "mongodb-memory-server": "^11.3.0",
     "oxlint": "^1.88.0",
     "typescript": "^7.0.2"
   }

@@ -3,6 +3,7 @@ import { once } from 'node:events'
 import type { AddressInfo } from 'node:net'
 import { after } from 'node:test'
 import { createApp } from '../src/app.ts'
+import type { AppConfig } from '../src/config.ts'
 import { createDb, type Db } from '../src/db/connection.ts'
 
 type GraphQLResponse<T> = {
@@ -27,9 +28,11 @@ export const setupTestDb = async (): Promise<Db> => {
   return db
 }
 
-export const setupTestApp = async () => {
+export const testConfig: AppConfig = { jwtSecret: 'test-secret' }
+
+export const setupTestApp = async (config: AppConfig = testConfig) => {
   const db = await setupTestDb()
-  const server = createApp(db).listen(0)
+  const server = createApp(db, config).listen(0)
   await once(server, 'listening')
   after(() => server.close())
 

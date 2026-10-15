@@ -29,7 +29,7 @@ export const setupTestDb = async (): Promise<Db> => {
 
 export const setupTestApp = async () => {
   const db = await setupTestDb()
-  const server = createApp().listen(0)
+  const server = createApp(db).listen(0)
   await once(server, 'listening')
   after(() => server.close())
 

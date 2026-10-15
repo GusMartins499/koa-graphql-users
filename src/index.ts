@@ -1,7 +1,11 @@
 import { createApp } from './app.ts'
+import { createDb } from './db/connection.ts'
 
 const port = Number(process.env.PORT ?? 3333)
+const db = await createDb(
+  process.env.MONGO_URI ?? 'mongodb://localhost:27017/koa-graphql-users',
+)
 
-createApp().listen(port, () => {
+createApp(db).listen(port, () => {
   console.log(`http://localhost:${port}/graphql`)
 })

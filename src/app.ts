@@ -1,11 +1,12 @@
 import { Router } from '@koa/router'
 import Koa from 'koa'
+import type { Db } from './db/connection.ts'
 import { createGraphQLHandler } from './yoga.ts'
 
-export const createApp = () => {
+export const createApp = (db: Db) => {
   const app = new Koa()
   const router = new Router()
-  const yoga = createGraphQLHandler()
+  const yoga = createGraphQLHandler(db)
 
   router.all('/graphql', async (ctx) => {
     const response = await yoga.handleNodeRequestAndResponse(ctx.req, ctx.res, {
